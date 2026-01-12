@@ -19,3 +19,14 @@ Route::get('/', function () {
 });
 
 Route::get('/products', [ProductController::class, 'index']);
+
+// 登録
+Route::get('/products/register', [ProductController::class, 'create']);
+Route::post('/products/register', [ProductController::class, 'store']);
+
+// 更新
+Route::get('/products/{product}/update', [ProductController::class, 'edit']);
+Route::post('/products/{product}/update', [ProductController::class, 'update']);
+
+// 削除
+Route::post('/products/{product}/delete', [ProductController::class, 'destroy']);

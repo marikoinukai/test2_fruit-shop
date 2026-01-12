@@ -43,32 +43,35 @@
 
         {{-- 右：商品カード --}}
         <section class="content">
-            @php
-            // いまは見た目確認用のダミーデータ（あとでDBに差し替え）
-            $products = [
-            ['name'=>'キウイ','price'=>800,'img'=>'images/kiwi.jpg'],
-            ['name'=>'ストロベリー','price'=>1200,'img'=>'images/strawberry.jpg'],
-            ['name'=>'オレンジ','price'=>850,'img'=>'images/orange.jpg'],
-            ['name'=>'スイカ','price'=>700,'img'=>'images/watermelon.jpg'],
-            ['name'=>'ピーチ','price'=>1000,'img'=>'images/peach.jpg'],
-            ['name'=>'シャインマスカット','price'=>1400,'img'=>'images/grape.jpg'],
-            ];
-            @endphp
+
+
+            <!-- test用 -->
+            @if($products->isEmpty())
+            <p>商品がまだ登録されていません。</p>
+            @else
+            <!-- test用end -->
+
+
+
 
             <div class="grid">
                 @foreach($products as $product)
-                <article class="card">
+                <a class="card" href="{{ url('/products/' . $product->id . '/update') }}">
                     <div class="card__image">
-                        <img src="{{ asset($product['img']) }}" alt="{{ $product['name'] }}">
+                        <img src="{{ asset($product->image) }}" alt="{{ $product->name }}">
                     </div>
 
                     <div class="card__body">
-                        <p class="card__name">{{ $product['name'] }}</p>
-                        <p class="card__price">¥{{ number_format($product['price']) }}</p>
+                        <p class="card__name">{{ $product->name }}</p>
+                        <p class="card__price">¥{{ number_format($product->price) }}</p>
                     </div>
-                </article>
+                </a>
                 @endforeach
             </div>
+
+            <!-- test用 -->
+            @endif
+            <!-- test用end -->
 
             <nav class="pagination">
                 <a class="page-btn" href="#" aria-label="prev">&lt;</a>

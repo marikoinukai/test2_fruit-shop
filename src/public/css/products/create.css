@@ -1,0 +1,102 @@
+.page {
+    width: 760px;
+    margin: 0 auto;
+    padding: 40px 0 80px;
+}
+
+.page__title {
+    font-size: 28px;
+    font-weight: 700;
+    margin: 0 0 28px;
+}
+
+.form {
+    display: grid;
+    gap: 18px;
+}
+
+.field__label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 8px;
+    font-size: 14px;
+}
+
+.badge-required {
+    display: inline-block;
+    padding: 2px 8px;
+    font-size: 12px;
+    color: #fff;
+    background: #d33;
+    border-radius: 3px;
+}
+
+.badge-note {
+    font-size: 12px;
+    color: #d33;
+}
+
+.input,
+.textarea {
+    width: 100%;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 10px 12px;
+    font-size: 14px;
+}
+
+.file {
+    font-size: 14px;
+}
+
+.seasons {
+    display: flex;
+    gap: 18px;
+    align-items: center;
+    padding: 6px 0;
+}
+
+.season {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 14px;
+}
+
+.error {
+    margin: 6px 0 0;
+    color: #d33;
+    font-size: 12px;
+    line-height: 1.4;
+}
+
+.actions {
+    display: flex;
+    justify-content: center;
+    gap: 28px;
+    margin-top: 26px;
+}
+
+.btn {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 200px;
+    height: 44px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 14px;
+    border: none;
+    cursor: pointer;
+}
+
+.btn--gray {
+    background: #cfcfcf;
+    color: #333;
+}
+
+.btn--yellow {
+    background: #f2c200;
+    color: #333;
+}
