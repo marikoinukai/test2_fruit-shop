@@ -7,6 +7,7 @@
     <title>@yield('title', 'mogitate')</title>
 
     {{-- 共通CSS --}}
+    <link rel="stylesheet" href="{{ asset('css/sanitize.css') }}">
     <link rel="stylesheet" href="{{ asset('css/common.css') }}">
 
     {{-- ページ固有CSS --}}
