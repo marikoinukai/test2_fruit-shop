@@ -43,6 +43,7 @@
 .sort__label {
     margin: 0;
     font-weight: 700;
+    color: #333;
 }
 
 .select {
@@ -52,6 +53,11 @@
     border: 1px solid #e5e5e5;
     border-radius: 6px;
     background: #fff;
+    color: #999;
+}
+
+.select.is-selected {
+    color: #333;
 }
 
 .chip {
@@ -145,4 +151,9 @@
     background: #f4b000;
     border-color: #f4b000;
     color: #fff;
+}
+
+.page-btn.is-disabled {
+    opacity: .4;
+    pointer-events: none;
 }

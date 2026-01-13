@@ -14,19 +14,19 @@ use App\Http\Controllers\ProductController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
-Route::get('/products', [ProductController::class, 'index']);
+Route::get('/products', [ProductController::class, 'index'])->name('products.index');
 
 // 登録
-Route::get('/products/register', [ProductController::class, 'create']);
-Route::post('/products/register', [ProductController::class, 'store']);
+Route::get('/products/register', [ProductController::class, 'create'])->name('products.create');
+Route::post('/products/register', [ProductController::class, 'store'])->name('products.store');
 
 // 更新
-Route::get('/products/{product}/update', [ProductController::class, 'edit']);
-Route::post('/products/{product}/update', [ProductController::class, 'update']);
+Route::get('/products/{productId}/update', [ProductController::class, 'edit'])->name('products.edit');
+Route::post('/products/{productId}/update', [ProductController::class, 'update'])->name('products.update');
+Route::post('/products/{productId}/delete', [ProductController::class, 'destroy'])->name('products.destroy');
+
+// 検索
+Route::get('/products/search', [ProductController::class, 'index'])->name('products.search');
 
 // 削除
 Route::post('/products/{product}/delete', [ProductController::class, 'destroy']);

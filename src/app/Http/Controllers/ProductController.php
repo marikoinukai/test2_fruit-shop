@@ -12,7 +12,25 @@ class ProductController extends Controller
     // 一覧    
     public function index(Request $request)
     {
-        $products = Product::all();
+        $query = Product::query();
+
+        // 検索（keyword）
+        if ($request->filled('keyword')) {
+            $query->where('name', 'like', '%' . $request->keyword . '%');
+        }
+
+        // 並び替え（sort）
+        if ($request->sort === 'price_desc') {
+            $query->orderBy('price', 'desc');
+        } elseif ($request->sort === 'price_asc') {
+            $query->orderBy('price', 'asc');
+        } else {
+            $query->latest('id'); // 何も指定がなければ新しい順など
+        }
+
+        // 3×2 6件/ページ
+        $products = $query->paginate(6)->withQueryString();
+
         return view('products.index', compact('products'));
     }
 
@@ -24,7 +42,7 @@ class ProductController extends Controller
     }
 
     // 登録処理
-    public function store(Request $request)
+    public function store(StoreProductRequest $request)
     {
         $validated = $request->validate(
             [
@@ -76,7 +94,7 @@ class ProductController extends Controller
     }
 
     // 更新処理
-    public function update(Request $request, Product $product)
+    public function update(UpdateProductRequest $request, Product $product)
     {
         $validated = $request->validate(
             [

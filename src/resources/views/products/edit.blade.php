@@ -22,7 +22,21 @@
                     <img src="{{ asset($product->image) }}" alt="{{ $product->name }}">
                 </div>
 
-                <input class="file" type="file" name="image" accept=".png,.jpg,.jpeg">
+                <label class="file-btn" for="image">
+                    ファイルを選択
+                </label>
+                <span class="file-name" id="file-name">
+                    {{ basename($product->image) }}
+                </span>
+
+                <input
+                    id="image"
+                    class="file-input"
+                    type="file"
+                    name="image"
+                    accept=".png,.jpg,.jpeg"
+                    onchange="showFileName(this)">
+
                 @error('image')
                 <p class="error">{{ $message }}</p>
                 @enderror
@@ -70,9 +84,10 @@
         </div>
 
         {{-- 商品説明 --}}
-        <div class="field field--desc">
+        <div class="field field--desc field--with-trash">
             <label class="label" for="description">商品説明</label>
             <textarea id="description" class="textarea" name="description" rows="7">{{ old('description', $product->description) }}</textarea>
+
             @error('description')
             <p class="error">{{ $message }}</p>
             @enderror
@@ -80,17 +95,17 @@
 
         {{-- ボタン --}}
         <div class="actions">
-            <a class="btn btn--gray" href="{{ url('/products') }}">戻る</a>
-            <button class="btn btn--yellow" type="submit">変更を保存</button>
+            <div class="actions__center">
+                <a class="btn btn--gray" href="{{ url('/products') }}">戻る</a>
+                <button class="btn btn--yellow" type="submit">変更を保存</button>
+            </div>
 
             {{-- 削除（ゴミ箱） --}}
-            <button class="trash" type="submit" form="deleteForm" aria-label="delete">🗑</button>
+            <form class="trash-form" action="{{ url('/products/' . $product->id . '/delete') }}" method="POST">
+                @csrf
+                <button class="trash" type="submit" aria-label="delete">🗑</button>
+            </form>
         </div>
-    </form>
-
-    {{-- 削除用フォーム --}}
-    <form id="deleteForm" action="{{ url('/products/' . $product->id . '/delete') }}" method="POST">
-        @csrf
     </form>
 </div>
 @endsection

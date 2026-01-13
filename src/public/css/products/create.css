@@ -50,6 +50,29 @@
     font-size: 14px;
 }
 
+.file-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 32px;
+    padding: 0 12px;
+    background: #cfcfcf;
+    color: #6f6f6f;
+    border: 2px solid #bbb;
+    cursor: pointer;
+    font-size: 13px;
+}
+
+.file-input {
+    display: none;
+}
+
+.file-name {
+    margin-left: 10px;
+    font-size: 13px;
+    color: #555;
+}
+
 .seasons {
     display: flex;
     gap: 18px;
@@ -62,6 +85,23 @@
     align-items: center;
     gap: 6px;
     font-size: 14px;
+    margin-right: 18px;
+}
+
+.season input[type="checkbox"] {
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    border: 1px solid #bbb;
+    border-radius: 50%;
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 8px;
+}
+
+.season input[type="checkbox"]:checked {
+    background: #333;
+    border-color: #333;
 }
 
 .error {
@@ -93,10 +133,5 @@
 
 .btn--gray {
     background: #cfcfcf;
-    color: #333;
-}
-
-.btn--yellow {
-    background: #f2c200;
     color: #333;
 }

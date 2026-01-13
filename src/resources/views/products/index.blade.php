@@ -14,7 +14,7 @@
         <aside class="sidebar">
             <h1 class="page-title">商品一覧</h1>
 
-            <form class="search" method="GET" action="{{ url('/products') }}">
+            <form class="search" method="GET" action="{{ route('products.index') }}">
                 <input
                     class="input"
                     type="text"
@@ -26,8 +26,8 @@
                 <div class="sort">
                     <p class="sort__label">価格順で表示</p>
 
-                    <select class="select" name="sort" onchange="this.form.submit()">
-                        <option value="">価格で並べ替え</option>
+                    <select class="select {{ request('sort') ? 'is-selected' : '' }}" name="sort" onchange="this.form.submit()">
+                        <option value="" disabled {{ request('sort') ? '' : 'selected' }}>価格で並べ替え</option>
                         <option value="price_desc" @selected(request('sort')==='price_desc' )>高い順に表示</option>
                         <option value="price_asc" @selected(request('sort')==='price_asc' )>安い順に表示</option>
                     </select>
@@ -44,16 +44,6 @@
         {{-- 右：商品カード --}}
         <section class="content">
 
-
-            <!-- test用 -->
-            @if($products->isEmpty())
-            <p>商品がまだ登録されていません。</p>
-            @else
-            <!-- test用end -->
-
-
-
-
             <div class="grid">
                 @foreach($products as $product)
                 <a class="card" href="{{ url('/products/' . $product->id . '/update') }}">
@@ -69,17 +59,33 @@
                 @endforeach
             </div>
 
-            <!-- test用 -->
-            @endif
-            <!-- test用end -->
-
+            @if ($products->hasPages())
             <nav class="pagination">
-                <a class="page-btn" href="#" aria-label="prev">&lt;</a>
-                <a class="page-num is-active" href="#">1</a>
-                <a class="page-num" href="#">2</a>
-                <a class="page-num" href="#">3</a>
-                <a class="page-btn" href="#" aria-label="next">&gt;</a>
+                {{-- 前へ --}}
+                @if ($products->onFirstPage())
+                <span class="page-btn is-disabled" aria-disabled="true">&lt;</span>
+                @else
+                <a class="page-btn" href="{{ $products->previousPageUrl() }}" rel="prev" aria-label="prev">&lt;</a>
+                @endif
+
+                {{-- ページ番号 --}}
+                @foreach ($products->getUrlRange(1, $products->lastPage()) as $page => $url)
+                @if ($page == $products->currentPage())
+                <span class="page-num is-active">{{ $page }}</span>
+                @else
+                <a class="page-num" href="{{ $url }}">{{ $page }}</a>
+                @endif
+                @endforeach
+
+                {{-- 次へ --}}
+                @if ($products->hasMorePages())
+                <a class="page-btn" href="{{ $products->nextPageUrl() }}" rel="next" aria-label="next">&gt;</a>
+                @else
+                <span class="page-btn is-disabled" aria-disabled="true">&gt;</span>
+                @endif
             </nav>
+            @endif
+
         </section>
 
     </div>

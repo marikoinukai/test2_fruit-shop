@@ -44,7 +44,21 @@
                 <span class="badge-required">必須</span>
             </div>
 
-            <input id="image" class="file" type="file" name="image" accept=".png,.jpg,.jpeg">
+            <label class="file-btn" for="image">
+                ファイルを選択
+            </label>
+            <span class="file-name" id="file-name">
+                選択されていません
+            </span>
+
+            <input
+                id="image"
+                class="file-input"
+                type="file"
+                name="image"
+                accept=".png,.jpg,.jpeg"
+                onchange="showFileName(this)">
+
             @error('image')
             <p class="error">{{ $message }}</p>
             @enderror

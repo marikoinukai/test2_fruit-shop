@@ -20,7 +20,7 @@
         <div class="header__inner">
             <a class="logo" href="{{ url('/products') }}">mogitate</a>
 
-            <a class="btn btn--primary" href="#">
+            <a class="btn btn--add" href="{{ route('products.create') }}">
                 ＋ 商品を追加
             </a>
         </div>
@@ -29,7 +29,13 @@
     <main class="main">
         @yield('content')
     </main>
-
+    <script>
+        function showFileName(input) {
+            if (input.files && input.files[0]) {
+                document.getElementById('file-name').textContent = input.files[0].name;
+            }
+        }
+    </script>
 </body>
 
 </html>
