@@ -6,23 +6,29 @@
 <link rel="stylesheet" href="{{ asset('css/products/index.css') }}">
 @endsection
 
-@section('header_right')
-@if (!request()->filled('keyword'))
-<a class="btn btn--add" href="{{ route('products.create') }}">
-    ＋ 商品を追加
-</a>
-@endif
-@endsection
-
-
 @section('content')
 <div class="container">
+
+    <div class="page-head">
+        <h1 class="page-title">
+            @if(request()->filled('keyword'))
+            “{{ request('keyword') }}”の商品一覧
+            @else
+            商品一覧
+            @endif
+        </h1>
+
+        @if (!request()->filled('keyword'))
+        <a class="btn btn--add" href="{{ route('products.create') }}">
+            ＋ 商品を追加
+        </a>
+        @endif
+    </div>
+
     <div class="layout">
 
         {{-- 左：サイドバー --}}
         <aside class="sidebar">
-            <h1 class="page-title">商品一覧</h1>
-
             <form class="search" method="GET" action="{{ route('products.index') }}">
                 <input
                     class="input"
@@ -34,16 +40,16 @@
 
                 <div class="sort">
                     <p class="sort__label">価格順で表示</p>
-
-                    <select class="select {{ request('sort') ? 'is-selected' : '' }}" name="sort" onchange="this.form.submit()">
-                        <option value="" disabled {{ request('sort') ? '' : 'selected' }}>価格で並べ替え</option>
-                        <option value="price_desc" @selected(request('sort')==='price_desc' )>高い順に表示</option>
-                        <option value="price_asc" @selected(request('sort')==='price_asc' )>安い順に表示</option>
-                    </select>
-
+                    <div class="select-wrap">
+                        <select id="sortSelect" class="select {{ request('sort') ? 'is-selected' : '' }}" name="sort">
+                            <option value="" disabled {{ !request()->filled('sort') ? 'selected' : '' }}>価格で並べ替え</option>
+                            <option value="price_desc" {{ request('sort') === 'price_desc' ? 'selected' : '' }}>高い順に表示</option>
+                            <option value="price_asc" {{ request('sort') === 'price_asc'  ? 'selected' : '' }}>安い順に表示</option>
+                        </select>
+                    </div>
                     @if(request()->filled('sort'))
                     <a class="chip" href="{{ url('/products') . '?' . http_build_query(request()->except('sort')) }}">
-                        {{ request('sort')==='price_desc' ? '高い順に表示' : '安い順に表示' }} ✕
+                        {{ request('sort')==='price_desc' ? '高い順に表示' : '安い順に表示' }}
                     </a>
                     @endif
                 </div>
@@ -52,7 +58,6 @@
 
         {{-- 右：商品カード --}}
         <section class="content">
-
             <div class="grid">
                 @foreach($products as $product)
                 <a class="card" href="{{ route('products.edit', ['productId' => $product->id]) }}">
@@ -99,4 +104,16 @@
 
     </div>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const select = document.getElementById('sortSelect');
+        if (!select) return;
+
+        select.addEventListener('change', function() {
+            this.form.submit();
+        });
+    });
+</script>
+
 @endsection

@@ -73,37 +73,6 @@
     color: #555;
 }
 
-.seasons {
-    display: flex;
-    gap: 18px;
-    align-items: center;
-    padding: 6px 0;
-}
-
-.season {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 14px;
-    margin-right: 18px;
-}
-
-.season input[type="checkbox"] {
-    appearance: none;
-    width: 16px;
-    height: 16px;
-    border: 1px solid #bbb;
-    border-radius: 50%;
-    display: inline-block;
-    vertical-align: middle;
-    margin-right: 8px;
-}
-
-.season input[type="checkbox"]:checked {
-    background: #333;
-    border-color: #333;
-}
-
 .error {
     margin: 6px 0 0;
     color: #d33;

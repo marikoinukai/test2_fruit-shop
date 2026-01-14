@@ -79,8 +79,7 @@
                         type="checkbox"
                         name="seasons[]"
                         value="{{ $season->id }}"
-                        @checked(in_array($season->id, old('seasons', [])))
-                    >
+                        {{ in_array($season->id, old('seasons', []), true) ? 'checked' : '' }}>
                     <span>{{ $season->name }}</span>
                 </label>
                 @endforeach

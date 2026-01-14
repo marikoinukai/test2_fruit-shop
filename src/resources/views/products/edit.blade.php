@@ -8,9 +8,11 @@
 
 @section('content')
 <div class="page">
-    <p class="breadcrumb">
-        <a href="{{ url('/products') }}">商品一覧</a> &gt; {{ $product->name }}
-    </p>
+    <nav class="breadcrumb">
+        <a href="{{ route('products.index') }}">商品一覧</a>
+        <span class="breadcrumb-separator">></span>
+        <span class="breadcrumb-current">{{ $product->name }}</span>
+    </nav>
 
     <form class="form" action="{{ url('/products/' . $product->id . '/update') }}" method="POST" enctype="multipart/form-data">
         @csrf
@@ -47,7 +49,7 @@
 
                 <div class="field">
                     <label class="label" for="name">商品名</label>
-                    <input id="name" class="input" type="text" name="name" value="{{ old('name', $product->name) }}">
+                    <input id="name" class="input" type="text" name="name" value="{{ old('name', $product->name) }}" placeholder="商品名を入力">
                     @error('name')
                     <p class="error">{{ $message }}</p>
                     @enderror
@@ -55,7 +57,7 @@
 
                 <div class="field">
                     <label class="label" for="price">値段</label>
-                    <input id="price" class="input" type="text" name="price" value="{{ old('price', $product->price) }}">
+                    <input id="price" class="input" type="text" name="price" value="{{ old('price', $product->price) }}" placeholder="値段を入力">
                     @error('price')
                     <p class="error">{{ $message }}</p>
                     @enderror
@@ -86,7 +88,7 @@
         {{-- 商品説明 --}}
         <div class="field field--desc field--with-trash">
             <label class="label" for="description">商品説明</label>
-            <textarea id="description" class="textarea" name="description" rows="7">{{ old('description', $product->description) }}</textarea>
+            <textarea id="description" class="textarea" name="description" rows="7" placeholder="商品の説明を入力">{{ old('description', $product->description) }}</textarea>
 
             @error('description')
             <p class="error">{{ $message }}</p>
@@ -101,10 +103,15 @@
             </div>
 
             {{-- 削除（ゴミ箱） --}}
-            <form class="trash-form" action="{{ url('/products/' . $product->id . '/delete') }}" method="POST">
-                @csrf
-                <button class="trash" type="submit" aria-label="delete">🗑</button>
-            </form>
+            <button
+                class="trash"
+                type="submit"
+                aria-label="delete"
+                formaction="{{ url('/products/' . $product->id . '/delete') }}"
+                formmethod="POST"
+                formnovalidate
+                onclick="return confirm('この商品を削除しますか？')">🗑</button>
+
         </div>
     </form>
 </div>

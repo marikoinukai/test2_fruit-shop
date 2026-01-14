@@ -19,10 +19,6 @@
     <header class="header">
         <div class="header__inner">
             <a class="logo" href="{{ url('/products') }}">mogitate</a>
-
-            @if (trim($__env->yieldContent('header_right')))
-            @yield('header_right')
-            @endif
         </div>
     </header>
 
