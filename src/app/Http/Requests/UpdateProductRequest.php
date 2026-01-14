@@ -26,7 +26,7 @@ class UpdateProductRequest extends FormRequest
         return [
             'name' => ['required', 'string', 'max:255'],
             'price' => ['required', 'numeric', 'between:0,10000', 'regex:/^\d+$/'],
-            'image' => ['nullable', 'file', 'mimes:png,jpg,jpeg'], // ←更新は任意
+            'image' => ['nullable', 'file', 'mimes:png,jpeg'], // ←更新は任意
             'description' => ['required', 'string', 'max:120'],
             'seasons' => ['required', 'array'],
             'seasons.*' => ['integer', 'exists:seasons,id'],
