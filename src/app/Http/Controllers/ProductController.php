@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use App\Models\Season;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
+use App\Http\Requests\StoreProductRequest;
+use App\Http\Requests\UpdateProductRequest;
 
 class ProductController extends Controller
 {
@@ -44,28 +45,7 @@ class ProductController extends Controller
     // 登録処理
     public function store(StoreProductRequest $request)
     {
-        $validated = $request->validate(
-            [
-                'name' => ['required', 'string', 'max:255'],
-                'price' => ['required', 'integer', 'min:0', 'max:10000'],
-                'image' => ['required', 'file', 'mimes:png,jpg,jpeg'],
-                'description' => ['required', 'string', 'max:120'],
-                'seasons' => ['required', 'array'],
-                'seasons.*' => ['integer', 'exists:seasons,id'],
-            ],
-            [
-                'name.required' => '商品名を入力してください',
-                'price.required' => '値段を入力してください',
-                'price.integer' => '数値で入力してください',
-                'price.min' => '0-10000円以内で入力してください',
-                'price.max' => '0-10000円以内で入力してください',
-                'image.required' => '商品画像を登録してください',
-                'image.mimes' => '「.png」または「.jpeg」形式でアップロードしてください',
-                'seasons.required' => '季節を選択してください',
-                'description.required' => '商品説明を入力してください',
-                'description.max' => '120文字以内で入力してください',
-            ]
-        );
+        $validated = $request->validated();
 
         // 画像保存
         $path = $request->file('image')->store('products', 'public');
@@ -85,8 +65,10 @@ class ProductController extends Controller
     }
 
     // 更新画面
-    public function edit(Product $product)
+    public function edit(Product $productId)
     {
+        $product = $productId;
+
         $seasons = Season::all();
         $selectedSeasonIds = $product->seasons()->pluck('seasons.id')->toArray();
 
@@ -94,29 +76,11 @@ class ProductController extends Controller
     }
 
     // 更新処理
-    public function update(UpdateProductRequest $request, Product $product)
+    public function update(UpdateProductRequest $request, Product $productId)
     {
-        $validated = $request->validate(
-            [
-                'name' => ['required', 'string', 'max:255'],
-                'price' => ['required', 'integer', 'min:0', 'max:10000'],
-                'image' => ['nullable', 'file', 'mimes:png,jpg,jpeg'],
-                'description' => ['required', 'string', 'max:120'],
-                'seasons' => ['required', 'array'],
-                'seasons.*' => ['integer', 'exists:seasons,id'],
-            ],
-            [
-                'name.required' => '商品名を入力してください',
-                'price.required' => '値段を入力してください',
-                'price.integer' => '数値で入力してください',
-                'price.min' => '0-10000円以内で入力してください',
-                'price.max' => '0-10000円以内で入力してください',
-                'image.mimes' => '「.png」または「.jpeg」形式でアップロードしてください',
-                'seasons.required' => '季節を選択してください',
-                'description.required' => '商品説明を入力してください',
-                'description.max' => '120文字以内で入力してください',
-            ]
-        );
+        $product = $productId;
+
+        $validated = $request->validated();
 
         if ($request->hasFile('image')) {
             $path = $request->file('image')->store('products', 'public');
@@ -136,11 +100,20 @@ class ProductController extends Controller
     }
 
     // 削除
-    public function destroy(Product $product)
+    public function destroy(Product $productId)
     {
+        $product = $productId;
+
         $product->seasons()->detach();
         $product->delete();
 
         return redirect('/products');
+    }
+
+    // 詳細
+    public function show(Product $productId)
+    {
+        $product = $productId;
+        return view('products.show', compact('product'));
     }
 }

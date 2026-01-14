@@ -20,9 +20,9 @@
         <div class="header__inner">
             <a class="logo" href="{{ url('/products') }}">mogitate</a>
 
-            <a class="btn btn--add" href="{{ route('products.create') }}">
-                ＋ 商品を追加
-            </a>
+            @if (trim($__env->yieldContent('header_right')))
+            @yield('header_right')
+            @endif
         </div>
     </header>
 

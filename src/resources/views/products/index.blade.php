@@ -6,6 +6,15 @@
 <link rel="stylesheet" href="{{ asset('css/products/index.css') }}">
 @endsection
 
+@section('header_right')
+@if (!request()->filled('keyword'))
+<a class="btn btn--add" href="{{ route('products.create') }}">
+    ＋ 商品を追加
+</a>
+@endif
+@endsection
+
+
 @section('content')
 <div class="container">
     <div class="layout">
@@ -46,7 +55,7 @@
 
             <div class="grid">
                 @foreach($products as $product)
-                <a class="card" href="{{ url('/products/' . $product->id . '/update') }}">
+                <a class="card" href="{{ route('products.edit', ['productId' => $product->id]) }}">
                     <div class="card__image">
                         <img src="{{ asset($product->image) }}" alt="{{ $product->name }}">
                     </div>
