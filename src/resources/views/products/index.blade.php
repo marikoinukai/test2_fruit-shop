@@ -29,7 +29,7 @@
 
         {{-- 左：サイドバー --}}
         <aside class="sidebar">
-            <form class="search" method="GET" action="{{ route('products.index') }}">
+            <form class="search" method="GET" action="{{ route('products.search') }}">
                 <input
                     class="input"
                     type="text"

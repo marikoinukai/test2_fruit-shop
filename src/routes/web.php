@@ -18,7 +18,7 @@ use App\Http\Controllers\ProductController;
 Route::get('/products', [ProductController::class, 'index'])->name('products.index');
 Route::model('productId', Product::class);
 Route::get('/products/detail/{productId}', [ProductController::class, 'show'])->name('products.show');
-
+Route::get('/products/search', [ProductController::class, 'index'])->name('products.search');
 
 // 登録
 Route::get('/products/register', [ProductController::class, 'create'])->name('products.create');
