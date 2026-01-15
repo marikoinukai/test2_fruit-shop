@@ -29,10 +29,10 @@
 }
 
 .preview {
-    background: #fff;
-    border: 1px solid #eee;
-    border-radius: 6px;
-    padding: 14px;
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    padding: 14px 14px 14px 0;
 }
 
 .preview img {

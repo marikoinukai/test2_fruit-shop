@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use App\Rules\DisallowJpgExtension;
 
 class StoreProductRequest extends FormRequest
 {
@@ -26,7 +27,7 @@ class StoreProductRequest extends FormRequest
         return [
             'name' => ['required', 'string', 'max:255'],
             'price' => ['required', 'numeric', 'between:0,10000', 'regex:/^\d+$/'],
-            'image' => ['required', 'file', 'mimes:png,jpeg'],
+            'image' => ['required', 'file', 'mimes:png,jpeg', new DisallowJpgExtension()],
             'description' => ['required', 'string', 'max:120'],
             'seasons' => ['required', 'array'],
             'seasons.*' => ['integer', 'exists:seasons,id'],

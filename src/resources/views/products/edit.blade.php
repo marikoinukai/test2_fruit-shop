@@ -21,7 +21,7 @@
             {{-- 左：画像 --}}
             <div class="image-area">
                 <div class="preview">
-                    <img src="{{ asset($product->image) }}" alt="{{ $product->name }}">
+                    <img id="previewImage" src="{{ asset($product->image) }}" alt="{{ $product->name }}">
                 </div>
 
                 <label class="file-btn" for="image">

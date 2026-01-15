@@ -104,3 +104,16 @@
     background: #cfcfcf;
     color: #333;
 }
+
+.image-area .preview {
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    padding: 14px 14px 14px 0;
+}
+
+.image-area .preview img {
+    width: 50%;
+    height: auto;
+    /* display: block; */
+}

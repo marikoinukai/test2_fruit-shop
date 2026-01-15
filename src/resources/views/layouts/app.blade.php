@@ -31,6 +31,28 @@
                 document.getElementById('file-name').textContent = input.files[0].name;
             }
         }
+
+        // 画像プレビュー（登録・更新 共通）
+        document.addEventListener('DOMContentLoaded', () => {
+            const input = document.getElementById('image');
+            const previewImg = document.getElementById('previewImage');
+
+            if (!input || !previewImg) return;
+
+            input.addEventListener('change', (e) => {
+                const file = e.target.files && e.target.files[0];
+                if (!file) return;
+
+                if (!file.type.startsWith('image/')) return;
+
+                const reader = new FileReader();
+                reader.onload = () => {
+                    previewImg.src = reader.result;
+                    previewImg.style.display = 'block';
+                };
+                reader.readAsDataURL(file);
+            });
+        });
     </script>
 </body>
 
