@@ -46,16 +46,10 @@
 
             <div class="image-area">
                 <div class="preview">
-                    <img
-                        id="previewImage"
-                        src=""
-                        alt="preview"
-                        style="display:none;">
+                    <img id="previewImage" src="" alt="preview" style="display:none;">
                 </div>
 
-                <label class="file-btn" for="image">
-                    ファイルを選択
-                </label>
+                <label class="file-btn" for="image">ファイルを選択</label>
                 <span class="file-name" id="file-name"></span>
 
                 <input
@@ -64,7 +58,7 @@
                     type="file"
                     name="image"
                     accept=".png,.jpg,.jpeg"
-                    onchange="showFileName(this)">
+                    onchange="handleImageChange(this)">
             </div>
 
             @error('image')

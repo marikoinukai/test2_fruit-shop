@@ -21,12 +21,13 @@
             {{-- 左：画像 --}}
             <div class="image-area">
                 <div class="preview">
-                    <img id="previewImage" src="{{ asset($product->image) }}" alt="{{ $product->name }}">
+                    <img
+                        id="previewImage"
+                        src="{{ asset('storage/' . $product->image) }}"
+                        alt="{{ $product->name }}">
                 </div>
 
-                <label class="file-btn" for="image">
-                    ファイルを選択
-                </label>
+                <label class="file-btn" for="image">ファイルを選択</label>
                 <span class="file-name" id="file-name">
                     {{ basename($product->image) }}
                 </span>
@@ -37,7 +38,7 @@
                     type="file"
                     name="image"
                     accept=".png,.jpg,.jpeg"
-                    onchange="showFileName(this)">
+                    onchange="handleImageChange(this)">
 
                 @error('image')
                 <p class="error">{{ $message }}</p>
@@ -46,7 +47,6 @@
 
             {{-- 右：入力 --}}
             <div class="fields">
-
                 <div class="field">
                     <label class="label" for="name">商品名</label>
                     <input id="name" class="input" type="text" name="name" value="{{ old('name', $product->name) }}" placeholder="商品名を入力">
@@ -81,9 +81,9 @@
                     <p class="error">{{ $message }}</p>
                     @enderror
                 </div>
-
             </div>
         </div>
+
 
         {{-- 商品説明 --}}
         <div class="field field--desc field--with-trash">
@@ -111,7 +111,6 @@
                 formmethod="POST"
                 formnovalidate
                 onclick="return confirm('この商品を削除しますか？')">🗑</button>
-
         </div>
     </form>
 </div>

@@ -49,7 +49,7 @@ class ProductController extends Controller
 
         // 画像保存
         $path = $request->file('image')->store('products', 'public');
-        $validated['image'] = 'storage/' . $path;
+        $validated['image'] = $path;
 
         $product = Product::create([
             'name' => $validated['name'],
@@ -84,7 +84,7 @@ class ProductController extends Controller
 
         if ($request->hasFile('image')) {
             $path = $request->file('image')->store('products', 'public');
-            $validated['image'] = 'storage/' . $path;
+            $validated['image'] = $path;
         }
 
         $product->update([
