@@ -50,7 +50,8 @@ php artisan db:seed
 - nginx 1.21.1
 
 ## ER図
-![alt text](docs/er_diagram.png)
+![ER Diagram](docs/er_diagram.png)
+※ er.drawio は編集用の元データです
 
 ## URL
 - 開発環境：http://localhost/

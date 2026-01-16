@@ -27,7 +27,12 @@ class UpdateProductRequest extends FormRequest
         return [
             'name' => ['required', 'string', 'max:255'],
             'price' => ['required', 'numeric', 'between:0,10000', 'regex:/^\d+$/'],
-            'image' => ['required', 'file', 'mimes:png,jpeg', new DisallowJpgExtension()],
+            'image' => [
+                $this->route('productId')?->image ? 'nullable' : 'required',
+                'file',
+                'mimes:png,jpeg',
+                new DisallowJpgExtension(),
+            ],
             'description' => ['required', 'string', 'max:120'],
             'seasons' => ['required', 'array'],
             'seasons.*' => ['integer', 'exists:seasons,id'],
@@ -42,6 +47,7 @@ class UpdateProductRequest extends FormRequest
             'price.numeric' => '数値で入力してください',
             'price.regex'   => '数値で入力してください',
             'price.between' => '0-10000円以内で入力してください',
+            'image.required' => '商品画像を登録してください',
             'image.mimes' => '「.png」または「.jpeg」形式でアップロードしてください',
             'seasons.required' => '季節を選択してください',
             'description.required' => '商品説明を入力してください',
